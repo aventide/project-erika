@@ -8,29 +8,30 @@ function getFiles(){
     console.log("trying to get files");
     jQuery.ajax({
         url: 'upload',
-        async: false,
         processData: false,
         contentType: false,
         type: 'GET',
         success: function (data){
             console.log("success");
-            if(data.length != document.getElementsByClassName('file').length){
+            if(data.length !== document.getElementsByClassName('file').length){
                 document.getElementById('files').innerHTML = "";
-                if(data === null || data.length == 0){
+                if(data === null || data.length === 0){
                     return;
                 }
                 data.forEach(function(data){
                     var fileName = data;
                     var fileNumber = document.getElementsByClassName('file').length + 1;
-                    var fileIcon;
+                    var fileIcon = "file_generic.png";
                     switch(fileName.substr(fileName.lastIndexOf('.') + 1)){
                         case "mp3":
-                            fileIcon = "music1.png";
+                            fileIcon = "file_generic.png";
                     }
                     var appendString = "<div class=\"file\">";
+                    appendString += "<div class=\"file-header\">";
                     appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
                     appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-                    appendString += "</div>";
+                    appendString += "<img src=\"close.png\" class=\"file-delete\">";
+                    appendString += "</div></div>";
                     jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
                 });
             }
@@ -42,7 +43,7 @@ function getFiles(){
 // Load all of the files already uploaded
 // check periodically for new uploads
 jQuery(document).ready(function(){
-    getFiles();-+
+    getFiles();
     setInterval(function(){
         getFiles()
     }, 5000);
@@ -56,7 +57,6 @@ jQuery(document).ready(function(){
         console.log(fd);
         jQuery.ajax({
             url: '/upload',
-            async: false,
             data: fd,
             processData: false,
             contentType: false,
@@ -67,14 +67,31 @@ jQuery(document).ready(function(){
                 var fileIcon;
                 switch(fileName.substr(fileName.lastIndexOf('.') + 1)){
                     case "mp3":
-                        fileIcon = "music1.png";
+                        fileIcon = "file_generic.png";
                 }
                 var appendString = "<div class=\"file\">";
+                appendString += "<div class=\"file-header\">";
                 appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
                 appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-                appendString += "</div>";
+                appendString += "<img src=\"close.png\" class=\"file-delete\">";
+                appendString += "</div></div>";
                 jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
             }});
     });
 });
+
+jQuery(document).on("click", ".file-delete", function(){
+        var deleteURL = jQuery(this).parent().children()[1].innerHTML;
+        jQuery.ajax({
+            url: '/uploads/' + deleteURL,
+            processData: false,
+            type: 'DELETE',
+            success: function () {
+                getFiles();
+            }
+        });
+});
+
+
+
 

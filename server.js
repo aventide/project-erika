@@ -71,6 +71,19 @@ app.post('/upload', function (request, response) {
     })
 });
 
+app.delete('/uploads/:filename', function(request, response){
+    console.log(__dirname + '/uploads/' + request.params.filename);
+    fs.unlink(__dirname + '/uploads/' + request.params.filename, function(err){
+        if(err){
+            throw err;
+        }
+        else {
+            response.send(request.params.filename + " deleted.");
+            response.end();
+        }
+    });
+});
+
 var server = app.listen(port, function () {
-    console.log('Listening on port ' + server.address().port)
+    console.log('Listening on port ' + server.address().port);
 });
