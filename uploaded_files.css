@@ -31,6 +31,14 @@ footer{
     margin: auto;
 }
 
+.icon-generic{
+    background: url("file_generic.png") center center no-repeat;
+}
+
+.icon-audio{
+    background: url("file_music.png") center center no-repeat;
+}
+
 .file{
     display: inline-block;
     width: 270px;
@@ -43,7 +51,7 @@ footer{
     border: 2px solid #4caf50;
     border-radius: 20px;
     margin-top: 0.2rem;
-    background: url("file_generic.png") center center no-repeat;
+    /*background: url("file_generic.png") center center no-repeat;*/
 }
 
 .file-header{
@@ -79,6 +87,11 @@ footer{
     height: 30px;
     right: 6px;
     position: absolute;
+    cursor: pointer;
+}
+
+.file-delete:hover{
+    opacity: 0.6;
 }
 
 .copyright-text{

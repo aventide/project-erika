@@ -4,6 +4,29 @@
 // Material Design Icons:
 // https://materialdesignicons.com/
 
+// Build up HTML component to represent uploaded file box
+function createFileBox(data) {
+    var fileName = data;
+    var fileNumber = document.getElementsByClassName('file').length + 1;
+    var fileIcon = "icon-generic";
+    switch (fileName.substr(fileName.lastIndexOf('.') + 1)) {
+        case "mp3":
+        case "flac":
+            fileIcon = "icon-audio";
+            break;
+    }
+
+    var appendString = "<div class=\"file " + fileIcon + "\">";
+    appendString += "<div class=\"file-header\">";
+    appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
+    appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
+    appendString += "<img src=\"close.png\" class=\"file-delete\">";
+    appendString += "</div></div>";
+
+    jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
+}
+
+// Display all uploaded files, and delete redundant copies of file boxes
 function getFiles(){
     console.log("trying to get files");
     jQuery.ajax({
@@ -19,20 +42,7 @@ function getFiles(){
                     return;
                 }
                 data.forEach(function(data){
-                    var fileName = data;
-                    var fileNumber = document.getElementsByClassName('file').length + 1;
-                    var fileIcon = "file_generic.png";
-                    switch(fileName.substr(fileName.lastIndexOf('.') + 1)){
-                        case "mp3":
-                            fileIcon = "file_generic.png";
-                    }
-                    var appendString = "<div class=\"file\">";
-                    appendString += "<div class=\"file-header\">";
-                    appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
-                    appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-                    appendString += "<img src=\"close.png\" class=\"file-delete\">";
-                    appendString += "</div></div>";
-                    jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
+                    createFileBox(data);
                 });
             }
         }
@@ -62,24 +72,12 @@ jQuery(document).ready(function(){
             contentType: false,
             type: 'POST',
             success: function(data){
-                var fileName = data;
-                var fileNumber = document.getElementsByClassName('file').length + 1;
-                var fileIcon;
-                switch(fileName.substr(fileName.lastIndexOf('.') + 1)){
-                    case "mp3":
-                        fileIcon = "file_generic.png";
-                }
-                var appendString = "<div class=\"file\">";
-                appendString += "<div class=\"file-header\">";
-                appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
-                appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-                appendString += "<img src=\"close.png\" class=\"file-delete\">";
-                appendString += "</div></div>";
-                jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
+                createFileBox(data);
             }});
     });
 });
 
+// Delete a file and trigger a refresh to remove file box
 jQuery(document).on("click", ".file-delete", function(){
         var deleteURL = jQuery(this).parent().children()[1].innerHTML;
         jQuery.ajax({
