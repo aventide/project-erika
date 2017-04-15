@@ -51,7 +51,21 @@ footer{
     border: 2px solid #4caf50;
     border-radius: 20px;
     margin-top: 0.2rem;
-    /*background: url("file_generic.png") center center no-repeat;*/
+}
+
+.file-thin{
+    display: block;
+    width: 100%;
+    height: 32px;
+    vertical-align: top;
+    padding: 0.2em;
+    margin-left: 0.2rem;
+    text-align: left;
+    font-size: 20px;
+    border: 2px solid #4caf50;
+    border-radius: 10px;
+    margin-top: 0.2rem;
+    background-image: none;
 }
 
 .file-header{
@@ -78,6 +92,20 @@ footer{
     overflow: hidden;
     text-overflow: ellipsis;
     width: 200px;
+    height: 32px;
+    white-space: nowrap;
+}
+
+.file-name-thin{
+    left: 34px;
+    position: absolute;
+    color: #4caf50;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: lighter;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 700px;
     height: 32px;
     white-space: nowrap;
 }

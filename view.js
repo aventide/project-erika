@@ -1,13 +1,15 @@
-/**
- * Created by ajsta on 3/8/2017.
- */
 // Material Design Icons:
 // https://materialdesignicons.com/
+// 20% opacity background
+
+// View mode is "file" for normal, "file-thin" for
+// a thin grid
+var viewMode = "file";
 
 // Build up HTML component to represent uploaded file box
 function createFileBox(data) {
     var fileName = data;
-    var fileNumber = document.getElementsByClassName('file').length + 1;
+    var fileNumber = document.getElementsByClassName(viewMode).length + 1;
     var fileIcon = "icon-generic";
     switch (fileName.substr(fileName.lastIndexOf('.') + 1)) {
         case "mp3":
@@ -16,7 +18,7 @@ function createFileBox(data) {
             break;
     }
 
-    var appendString = "<div class=\"file " + fileIcon + "\">";
+    var appendString = "<div class=\"" + viewMode + " " + fileIcon + "\">";
     appendString += "<div class=\"file-header\">";
     appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
     appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
@@ -36,7 +38,8 @@ function getFiles(){
         type: 'GET',
         success: function (data){
             console.log("success");
-            if(data.length !== document.getElementsByClassName('file').length){
+            if(data.length !== document.getElementsByClassName('file').length +
+                document.getElementsByClassName('file-thin').length){
                 document.getElementById('files').innerHTML = "";
                 if(data === null || data.length === 0){
                     return;
@@ -55,7 +58,7 @@ function getFiles(){
 jQuery(document).ready(function(){
     getFiles();
     setInterval(function(){
-        getFiles()
+        getFiles();
     }, 5000);
 });
 
@@ -90,6 +93,17 @@ jQuery(document).on("click", ".file-delete", function(){
         });
 });
 
+jQuery(document).on("click", "#switch-view-btn", function(){
+    viewMode = viewMode === "file" ? "file-thin" : "file";
+    jQuery(".file, .file-thin").each(function() {
+        jQuery(this).toggleClass("file")
+            .toggleClass("file-thin");
+    });
+    jQuery(".file-name, .file-name-thin").each(function() {
+        jQuery(this).toggleClass("file-name")
+            .toggleClass("file-name-thin");
+    });
+});
 
 
 
