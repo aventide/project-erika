@@ -18,11 +18,13 @@ function createFileBox(data) {
             break;
     }
 
+    var fileNameMode = viewMode === "file-thin" ? "file-name-thin" : "file-name";
+
     var appendString = "<div class=\"" + viewMode + " " + fileIcon + "\">";
     appendString += "<div class=\"file-header\">";
     appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
-    appendString += "<a class=\"file-name\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-    appendString += "<img src=\"close.png\" class=\"file-delete\">";
+    appendString += "<a class=\"" + fileNameMode + "\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
+    appendString += "<img src=\"images/close.png\" class=\"file-delete\">";
     appendString += "</div></div>";
 
     jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
@@ -76,7 +78,8 @@ jQuery(document).ready(function(){
             type: 'POST',
             success: function(data){
                 createFileBox(data);
-            }});
+            }
+        });
     });
 });
 
@@ -95,6 +98,7 @@ jQuery(document).on("click", ".file-delete", function(){
 
 jQuery(document).on("click", "#switch-view-btn", function(){
     viewMode = viewMode === "file" ? "file-thin" : "file";
+    jQuery("#switch-view-btn").attr("src", viewMode === "file" ? "images/lines.png" : "images/grid.png");
     jQuery(".file, .file-thin").each(function() {
         jQuery(this).toggleClass("file")
             .toggleClass("file-thin");

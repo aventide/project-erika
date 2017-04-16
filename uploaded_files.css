@@ -11,6 +11,10 @@ header{
     text-align: center;
 }
 
+span{
+    cursor: default;
+}
+
 .upload-section{
     height: 5rem;
     width: 100%;
@@ -32,11 +36,11 @@ footer{
 }
 
 .icon-generic{
-    background: url("file_generic.png") center center no-repeat;
+    background: url("images/file_generic.png") center center no-repeat;
 }
 
 .icon-audio{
-    background: url("file_music.png") center center no-repeat;
+    background: url("images/file_music.png") center center no-repeat;
 }
 
 .file{
@@ -96,6 +100,10 @@ footer{
     white-space: nowrap;
 }
 
+.file-name:hover{
+    text-decoration-line: underline;
+}
+
 .file-name-thin{
     left: 34px;
     position: absolute;
@@ -108,6 +116,10 @@ footer{
     width: 700px;
     height: 32px;
     white-space: nowrap;
+}
+
+.file-name-thin:hover{
+    text-decoration-line: underline;
 }
 
 .file-delete{
@@ -128,8 +140,25 @@ footer{
     vertical-align: bottom;
 }
 
-.pre-footer{
+#toolbar-container{
     margin-top: 20px;
+    height: 32px;
+    width: 100%;
+    border-top: 1px solid #4caf50;
+}
+
+#toolbar{
+    height: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 32px;
+}
+
+#toolbar:hover{
+    opacity: 0.6;
+}
+
+.pre-footer{
     background-color: #4CAF50;
     height: 2rem;
     width: 100%;
@@ -142,6 +171,7 @@ footer{
     background: #4caf50;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
+    //position: relative;
 }
 
 .btn:hover {
@@ -150,10 +180,10 @@ footer{
 }
 
 #cloud-icon{
+    //position: absolute;
 }
 
 #add-file{
-
 }
 
 .inputfile {
