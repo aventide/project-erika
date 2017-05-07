@@ -199,7 +199,16 @@ footer{
     .file{
         margin-left: 0.2rem;
         margin-right: 0.2rem;
-        width: 100%; !important;
+        width: 90%; !important;
         height: 240px; !important;
+    }
+    .file-thin{
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+        width: 90%; !important;
+    }
+    .file-name-thin{
+        width: 270px;
+        text-overflow: ellipsis;
     }
 }
