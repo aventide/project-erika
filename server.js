@@ -119,6 +119,12 @@ app.get('/upload', function(request, response){
     console.log("filelist:" + fileList);
 });
 
+app.get('/uploads/:filename', function(req, res){
+    if(req.session.user){
+        res.sendFile(__dirname + '/uploads/' + req.params.filename);
+    }
+});
+
 //Posting the file upload
 app.post('/upload', function (request, response) {
     upload(request, response, function (err) {
@@ -132,12 +138,6 @@ app.post('/upload', function (request, response) {
         response.send(request.file.originalname);
 
     })
-});
-
-app.get('/uploads/:filename', function(req, res){
-    if(req.session.user){
-        res.sendFile(__dirname + '/uploads/' + req.params.filename);
-    }
 });
 
 app.delete('/uploads/:filename', function(request, response){

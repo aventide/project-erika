@@ -22,12 +22,10 @@ function createFileBox(data) {
 
     var fileNameMode = viewMode === "file-thin" ? "file-name-thin" : "file-name";
 
-    alert(fileName);
-
     var appendString = "<div class=\"" + viewMode + " " + fileIcon + "\">";
     appendString += "<div class=\"file-header\">";
     appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
-    appendString += "<a class=\"" + fileNameMode + "\" " + "" + "href=\"../uploads/\">" + fileName + "" + data + "</a>";
+    appendString += "<a class=\"" + fileNameMode + "\" " + "" + "href=\"../uploads/" + fileName + "\">" + fileName + "</a>";
     appendString += "<img src=\"public/images/close.png\" class=\"file-delete\">";
     appendString += "</div></div>";
 
