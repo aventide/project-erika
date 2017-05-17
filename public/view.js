@@ -8,7 +8,9 @@ var viewMode = "file";
 
 // Build up HTML component to represent uploaded file box
 function createFileBox(data) {
+
     var fileName = data;
+
     var fileNumber = document.getElementsByClassName(viewMode).length + 1;
     var fileIcon = "icon-generic";
     switch (fileName.substr(fileName.lastIndexOf('.') + 1)) {
@@ -20,11 +22,13 @@ function createFileBox(data) {
 
     var fileNameMode = viewMode === "file-thin" ? "file-name-thin" : "file-name";
 
+    alert(fileName);
+
     var appendString = "<div class=\"" + viewMode + " " + fileIcon + "\">";
     appendString += "<div class=\"file-header\">";
     appendString += "<span class=\"file-number\">" + fileNumber + "</span>";
-    appendString += "<a class=\"" + fileNameMode + "\" " + "href=\"" + "uploads/" + fileName + "\">" + data + "</a>";
-    appendString += "<img src=\"images/close.png\" class=\"file-delete\">";
+    appendString += "<a class=\"" + fileNameMode + "\" " + "" + "href=\"../uploads/\">" + fileName + "" + data + "</a>";
+    appendString += "<img src=\"public/images/close.png\" class=\"file-delete\">";
     appendString += "</div></div>";
 
     jQuery(appendString).hide().appendTo("#files").fadeIn("slow");
@@ -98,7 +102,7 @@ jQuery(document).on("click", ".file-delete", function(){
 
 jQuery(document).on("click", "#switch-view-btn", function(){
     viewMode = viewMode === "file" ? "file-thin" : "file";
-    jQuery("#switch-view-btn").attr("src", viewMode === "file" ? "images/lines.png" : "images/grid.png");
+    jQuery("#switch-view-btn").attr("src", viewMode === "file" ? "public/images/lines.png" : "public/images/grid.png");
     jQuery(".file, .file-thin").each(function() {
         jQuery(this).toggleClass("file")
             .toggleClass("file-thin");

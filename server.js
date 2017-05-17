@@ -1,17 +1,45 @@
 /**
- * Created by ajsta on 1/18/2017.
- *
- * http://www.codingdefined.com/2016/01/file-upload-in-nodejs.html
+ * Created by ajsta on 1/18/2017
  *
  */
 
 var express = require('express');
 var multer = require('multer');
+var session = require('client-sessions');
+var bodyParser = require('body-parser');
+var bcrypt = require('bcrypt');
+var mysql = require('mysql');
 var fs = require('file-system');
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "woi9HooZ",
+    database: "kemmcare"
+});
+
+connection.connect(function(err){
+    if(err){
+        console.log('Error connecting to database');
+        return;
+    }
+    console.log('Database connection established.');
+});
+
 var app = express();
 var port = 5000;
-
 app.set('port', port);
+
+app.use('/public', express.static(__dirname + '/public'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(session({
+    cookieName: 'session',
+    secret: 'Quae8dee!Ahth5kah!',
+    duration: 30 * 60 * 1000,
+    activeDuration: 5 * 60 * 1000
+}));
 
 var storage = multer.diskStorage({
     destination: function (request, file, callback) {
@@ -27,11 +55,46 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage}).single('file');
 
-app.use(express.static('.'));
+app.post('/login', function(req, res){
+    connection.query('SELECT * FROM users', function(err, rows){
+        if(err) throw err;
 
-//Showing index.html file on our homepage
-app.get('/', function (request, response) {
-    response.sendFile(__dirname + '/index.html');
+        if(rows.length > 0){
+            if(req.body.username === rows[0].email){
+                bcrypt.compare(req.body.password, rows[0].password, function(err, matches){
+                    if(matches){
+                        req.session.user = rows[0].email;
+                        res.redirect('/');
+                    }
+                    else{
+                        res.send("<html>Valid Username, bad password.</html>");
+                    }
+                });
+            }
+            else{
+                res.send("<html>Invalid username.</html>");
+            }
+        }
+    });
+});
+
+app.post('/logout', function(req, res){
+    req.session.reset();
+    res.redirect('/');
+});
+
+app.get('/logout', function(req, res){
+    req.session.reset();
+    res.redirect('/');
+});
+
+app.get('/', function(req, res){
+    console.log("GET /");
+    if(req.session.user){
+        res.sendFile(__dirname + '/uploader.html');
+    } else{
+        res.sendFile(__dirname + '/login.html');
+    }
 });
 
 // getting files that are already uploaded
@@ -69,6 +132,12 @@ app.post('/upload', function (request, response) {
         response.send(request.file.originalname);
 
     })
+});
+
+app.get('/uploads/:filename', function(req, res){
+    if(req.session.user){
+        res.sendFile(__dirname + '/uploads/' + req.params.filename);
+    }
 });
 
 app.delete('/uploads/:filename', function(request, response){
