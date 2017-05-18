@@ -3,15 +3,15 @@
  *
  */
 
-var express = require('express');
-var multer = require('multer');
-var session = require('client-sessions');
-var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
-var mysql = require('mysql');
-var fs = require('file-system');
+let express = require('express');
+let multer = require('multer');
+let session = require('client-sessions');
+let bodyParser = require('body-parser');
+let bcrypt = require('bcrypt');
+let mysql = require('mysql');
+let fs = require('file-system');
 
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "woi9HooZ",
@@ -26,8 +26,8 @@ connection.connect(function(err){
     console.log('Database connection established.');
 });
 
-var app = express();
-var port = 5000;
+let app = express();
+let port = 5000;
 app.set('port', port);
 
 app.use('/public', express.static(__dirname + '/public'));
@@ -41,7 +41,7 @@ app.use(session({
     activeDuration: 5 * 60 * 1000
 }));
 
-var storage = multer.diskStorage({
+let storage = multer.diskStorage({
     destination: function (request, file, callback) {
         callback(null, 'uploads/');
     },
@@ -53,12 +53,11 @@ var storage = multer.diskStorage({
 
 /*Multer accepts a single file with the name photo. This file will be stored in request.file*/
 
-var upload = multer({storage: storage}).single('file');
+let upload = multer({storage: storage}).single('file');
 
 app.post('/login', function(req, res){
-    connection.query('SELECT * FROM users', function(err, rows){
+    connection.query(`SELECT * FROM users where email='${req.body.username}'`, function(err, rows){
         if(err) throw err;
-
         if(rows.length > 0){
             if(req.body.username === rows[0].email){
                 bcrypt.compare(req.body.password, rows[0].password, function(err, matches){
@@ -99,14 +98,14 @@ app.get('/', function(req, res){
 
 // getting files that are already uploaded
 app.get('/upload', function(request, response){
-    var fileList = [];
+    let fileList = [];
     fs.readdir("./uploads", function(err, files){
         if(err || files.length === 0){
             console.log(err);
             response.end();
             return;
         }
-        var itemsProcessed = 0;
+        let itemsProcessed = 0;
         files.forEach(function(file){
             itemsProcessed++;
             console.log("Loading: " + file);
@@ -153,6 +152,6 @@ app.delete('/uploads/:filename', function(request, response){
     });
 });
 
-var server = app.listen(port, function () {
+let server = app.listen(port, function () {
     console.log('Listening on port ' + server.address().port);
 });
