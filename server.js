@@ -8,23 +8,8 @@ let multer = require('multer');
 let session = require('client-sessions');
 let bodyParser = require('body-parser');
 let bcrypt = require('bcrypt');
-let mysql = require('mysql');
 let fs = require('file-system');
-
-let connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "woi9HooZ",
-    database: "kemmcare"
-});
-
-connection.connect(function(err){
-    if(err){
-        console.log('Error connecting to database');
-        return;
-    }
-    console.log('Database connection established.');
-});
+let database = require('./database');
 
 let app = express();
 let port = 5000;
@@ -56,23 +41,21 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage}).single('file');
 
 app.post('/login', function(req, res){
-    connection.query(`SELECT * FROM users where email='${req.body.username}'`, function(err, rows){
+    database.getUsers( `SELECT * FROM users where email='${req.body.username}'`, (err, rows) => {
         if(err) throw err;
         if(rows.length > 0){
-            if(req.body.username === rows[0].email){
-                bcrypt.compare(req.body.password, rows[0].password, function(err, matches){
-                    if(matches){
-                        req.session.user = rows[0].email;
-                        res.redirect('/');
-                    }
-                    else{
-                        res.send("<html>Valid Username, bad password.</html>");
-                    }
-                });
-            }
-            else{
-                res.send("<html>Invalid username.</html>");
-            }
+            bcrypt.compare(req.body.password, rows[0].password, function(err, matches){
+                if(matches){
+                    req.session.user = rows[0].email;
+                    res.redirect('/');
+                }
+                else{
+                    res.send("<html>Valid Username, bad password.</html>");
+                }
+            });
+        }
+        else{
+            res.send("<html>Invalid Username.</html>");
         }
     });
 });
@@ -121,6 +104,8 @@ app.get('/upload', function(request, response){
 app.get('/uploads/:filename', function(req, res){
     if(req.session.user){
         res.sendFile(__dirname + '/uploads/' + req.params.filename);
+    } else{
+        res.redirect('/');
     }
 });
 
