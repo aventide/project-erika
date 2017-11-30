@@ -1,0 +1,169 @@
+.App {
+  text-align: center;
+}
+
+.Toolbar{
+  height: 10vh;
+  background-color: #3c5775;
+  background-image: url("../images/batthern.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  display: table;
+  width: 100%;
+}
+
+header{
+  width: 100%;
+  height: 6rem;
+  font-size: 20px;
+  color: lightblue;
+  position: relative;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+h2{
+  margin: 0;
+  width: 100vw;
+}
+
+.SymbolDescription{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 14px;
+  margin: auto;
+  height: 3em;
+}
+
+.PersonalSymbol{
+  height: 3em;
+  width: 3em;
+  float: left;
+}
+
+.SeparationLine{
+  float: left;
+  height: 3em;
+  border-left: 2px solid lightblue;
+  margin-left: 0.5em;
+}
+
+.HeaderDescription{
+  height: 3em;
+  width: 3em;
+  float: left;
+  margin-left: 0.5em;
+}
+
+.file-section-container{
+  background-color: #3c5775;
+  background-image: url("../images/batthern.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.file-section{
+  padding: 0px 0 40px 0;
+  max-width: 1200px;
+  text-align: center;
+  margin: auto;
+}
+
+footer{
+  width: 100%;
+  height: 40vh;
+  background-color: #282D36;
+  color: #FFF;
+  padding-top: 4vh;
+}
+
+.file{
+  background-color: #3c5775;
+  display: inline-block;
+  width: 270px;
+  height: 270px;
+  vertical-align: top;
+  padding: 0.2em;
+  margin-left: 0.5rem;
+  text-align: left;
+  font-size: 20px;
+  border: 2px solid lightblue;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.file:hover{
+  border: 2px solid white;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+.file-thin{
+  display: block;
+  width: 100%;
+  height: 32px;
+  vertical-align: top;
+  padding: 0.2em;
+  margin-left: 0.2rem;
+  text-align: left;
+  font-size: 20px;
+  border: 2px solid steelblue;
+  border-radius: 10px;
+  margin-top: 0.2rem;
+  background-image: none;
+}
+
+.btn{
+  padding: 10px 16px 10px 16px;
+  border: 2px solid lightblue;
+  background-color: inherit;
+  color: lightblue;
+  display: inline-block;
+  margin: 0 auto;
+  font-size: 1em;
+  border-radius: 4px;
+}
+
+.btn img{
+  height: 1em;
+  width: 1em;
+}
+
+input{
+  display: none;
+}
+
+.btn-container{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.btn:hover{
+  border-color: #FFF;
+  color: #FFF;
+  background-color: #3c578F;
+}
+
+.example-enter {
+  opacity: 0;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: 1s;
+}
+
+.example-leave {
+  opacity: 1;
+  transition: 1s;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0;
+  transition: 1s;
+}
