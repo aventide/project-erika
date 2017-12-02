@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import AppHeader from '../components/Header';
+import Header from '../components/Header';
 import Toolbar from '../components/Toolbar.jsx';
 import FileSection from '../components/FileSystemEntryGrid.jsx'
 
@@ -11,7 +11,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<AppHeader/>
+				<Header text="Choose a file. Upload it. All uploads appear below."/>
 				<Toolbar/>
 				<FileSection fileDisplayMode="file"/>
 				<footer>Copyright &copy; 2017 Alex Staples. All Rights Reserved.</footer>

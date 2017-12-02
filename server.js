@@ -6,9 +6,9 @@
  */
 
 let express = require('express'),
-	multer = require('multer');
-fs = require('fs');
-app = express();
+	multer = require('multer'),
+	fs = require('fs'),
+	app = express();
 
 const port = 5000;
 
@@ -41,7 +41,10 @@ app.get('/upload', function (request, response) {
 			console.log(err);
 			response.send([]);
 		} else {
-			response.send(files);
+			console.log(files);
+			// send files read from fs
+			// filter out hidden files that start with periods
+			response.send(files.filter(f => !f.startsWith('.')));
 		}
 	});
 });

@@ -14,11 +14,11 @@ class FileSystemEntryGrid extends React.Component {
 	}
 
 	componentDidMount() {
-		this.getFileItems();
-		setInterval(this.getFileItems.bind(this), 5000);
+		this.getFSEntries();
+		setInterval(this.getFSEntries.bind(this), 5000);
 	}
 
-	getFileItems() {
+	getFSEntries() {
 		Axios.get('/upload')
 			.then(response => {
 				this.setState({files: response.data});
@@ -26,6 +26,7 @@ class FileSystemEntryGrid extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<div className="file-section-container">
 				<div className="file-section">

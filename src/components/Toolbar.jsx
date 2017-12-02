@@ -63,12 +63,9 @@ class Toolbar extends React.Component {
 	}
 }
 
-const ButtonRow = props => {
-	return (
+const ButtonRow = props =>
 		<div className="btn-container">
 			{props.children}
-		</div>
-	);
-};
+		</div>;
 
 export default Toolbar;
