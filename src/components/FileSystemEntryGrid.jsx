@@ -34,8 +34,8 @@ class FileSystemEntryGrid extends React.Component {
 											 transitionLeaveTimeout={700}>
 						{this.state.files.map(file => (
 							<FileSystemEntry
-								key={file}
-								name={file}
+								key={file.name}
+								file={file}
 								fileDisplayMode={this.props.fileDisplayMode}
 							/>
 						))}
