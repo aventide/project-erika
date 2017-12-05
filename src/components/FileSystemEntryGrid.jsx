@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import '../containers/App.css';
+import './FileSystemEntryGrid.css';
 import Axios from 'axios';
 import FileSystemEntry from "./FileSystemEntry.jsx";
 
@@ -30,7 +30,7 @@ class FileSystemEntryGrid extends React.Component {
 		return (
 			<div className="file-section-container">
 				<div className="file-section">
-					<ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={700}
+					<ReactCSSTransitionGroup transitionName="file" transitionEnterTimeout={700}
 											 transitionLeaveTimeout={700}>
 						{this.state.files.map(file => (
 							<FileSystemEntry
