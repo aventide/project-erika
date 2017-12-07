@@ -1,131 +1,148 @@
 .App {
-  text-align: center;
-
-  user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -webkit-user-select: none;
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    height: auto;
 }
 
-.Toolbar{
-  height: 10vh;
-  background-color: #3c5775;
-  background-image: url("../images/batthern.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-  display: table;
-  width: 100%;
+.main-content {
+    padding: 0px 0 40px 0;
+    max-width: 1200px;
+    text-align: center;
+    margin: auto;
 }
 
-header{
-  width: 100vw;
-  height: 6rem;
-  font-size: 20px;
-  color: lightblue;
-  position: relative;
-  vertical-align: middle;
-  display: table-cell;
+.main-content-container {
+    background-color: #3c5775;
+    background-image: url("../images/batthern.png");
 }
 
-h2{
-  margin: auto;
+.Toolbar {
+    height: 10vh;
+    /*background-color: #3c5775;*/
+    /*background-image: url("../images/batthern.png");*/
+    display: table;
+    width: 100%;
 }
 
-h2:hover{
-  cursor: default;
+.g-25{
+    width: 25%;
 }
 
-h6:hover{
-  text-decoration: underline;
-  cursor: pointer;
+.g-50{
+    width: 50%;
 }
 
-.LeftHeaderContent{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 14px;
-  margin: auto;
-  height: 3em;
+header {
+    width: 100vw;
+    height: 6rem;
+    font-size: 20px;
+    color: lightblue;
+    position: relative;
+    vertical-align: middle;
+    display: table-cell;
 }
 
-.RightHeaderContent{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 24px;
-  margin: auto;
-  height: 3em;
+h2 {
+    margin: auto;
 }
 
-.PersonalSymbol{
-  height: 3em;
-  width: 3em;
-  float: left;
+h2:hover {
+    cursor: default;
 }
 
-.SeparationLine{
-  float: left;
-  height: 3em;
-  border-left: 2px solid lightblue;
-  margin-left: 0.5em;
+h6:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.HeaderDescription{
-  height: 3em;
-  width: 3em;
-  float: left;
-  margin-left: 0.5em;
+.LeftHeaderContent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 14px;
+    margin: auto;
+    height: 3em;
 }
 
-footer{
-  width: 100%;
-  height: 40vh;
-  background-color: #282D36;
-  color: #FFF;
-  padding-top: 4vh;
+.RightHeaderContent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 24px;
+    margin: auto;
+    height: 3em;
 }
 
-
-
-.btn{
-  padding: 10px 16px 10px 16px;
-  border: 2px solid lightblue;
-  background-color: inherit;
-  color: lightblue;
-  display: inline-block;
-  margin: 0 auto;
-  font-size: 1em;
-  border-radius: 4px;
+.PersonalSymbol {
+    height: 3em;
+    width: 3em;
+    float: left;
 }
 
-.btn img{
-  height: 1em;
-  width: 1em;
+.SeparationLine {
+    float: left;
+    height: 3em;
+    border-left: 2px solid lightblue;
+    margin-left: 0.5em;
 }
 
-input{
-  display: none;
+.HeaderDescription {
+    height: 3em;
+    width: 3em;
+    float: left;
+    margin-left: 0.5em;
 }
 
-.btn-container{
-  display: table-cell;
-  vertical-align: middle;
+footer {
+    width: 100%;
+    height: 40vh;
+    background-color: #282D36;
+    color: #FFF;
+    padding-top: 4vh;
 }
 
-.btn:hover{
-  border-color: #FFF;
-  color: #FFF;
-  background-color: #3c578F;
+.btn {
+    padding: 10px 16px 10px 16px;
+    border: 2px solid lightblue;
+    background-color: inherit;
+    color: lightblue;
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 1em;
+    border-radius: 4px;
+}
+
+.btn img {
+    height: 1em;
+    width: 1em;
+}
+
+input {
+    display: none;
+}
+
+.btn-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.btn:hover {
+    border-color: #FFF;
+    color: #FFF;
+    background-color: #3c578F;
 }
 
 @media screen and (max-width: 1150px) {
-  h2{
-    max-width: 50vw;
-  }
+    h2 {
+        max-width: 50vw;
+    }
 }
 
 @media screen and (max-width: 770px) {
-  h2{
-    display: none;
-  }
+    h2 {
+        display: none;
+    }
 }

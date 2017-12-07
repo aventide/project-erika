@@ -8,43 +8,41 @@ import FileSystemEntry from "./FileSystemEntry.jsx";
 
 class FileSystemEntryGrid extends React.Component {
 
-	constructor() {
-		super();
-		this.state = {files: []};
-	}
+    constructor() {
+        super();
+        this.state = {files: []};
+    }
 
-	componentDidMount() {
-		this.getFSEntries();
-		setInterval(this.getFSEntries.bind(this), 5000);
-	}
+    componentDidMount() {
+        this.getFSEntries();
+        setInterval(this.getFSEntries.bind(this), 5000);
+    }
 
-	getFSEntries() {
-		Axios.get('/upload')
-			.then(response => {
-				this.setState({files: response.data});
-			});
-	}
+    getFSEntries() {
+        Axios.get('/upload')
+            .then(response => {
+                this.setState({files: response.data});
+            });
+    }
 
-	render() {
+    render() {
 
-		return (
-			<div className="file-section-container">
-				<div className="file-section">
-					<ReactCSSTransitionGroup transitionName="file" transitionEnterTimeout={700}
-											 transitionLeaveTimeout={700}>
-						{this.state.files.map(file => (
-							<FileSystemEntry
-								key={file.name}
-								file={file}
-								fileDisplayMode={this.props.fileDisplayMode}
-							/>
-						))}
-					</ReactCSSTransitionGroup>
-				</div>
-			</div>
+        return (
+            <div>
+                <ReactCSSTransitionGroup transitionName="file" transitionEnterTimeout={700}
+                                         transitionLeaveTimeout={700}>
+                    {this.state.files.map(file => (
+                        <FileSystemEntry
+                            key={file.name}
+                            file={file}
+                            fileDisplayMode={this.props.fileDisplayMode}
+                        />
+                    ))}
+                </ReactCSSTransitionGroup>
+            </div>
 
-		)
-	}
+        )
+    }
 }
 
 export default FileSystemEntryGrid;

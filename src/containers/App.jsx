@@ -12,8 +12,12 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Header text="Choose a file. Upload it. All uploads appear below."/>
-				<Toolbar/>
-				<FileSection fileDisplayMode="file"/>
+                <div className="main-content-container">
+                    <div className="main-content">
+                        <Toolbar/>
+                        <FileSection fileDisplayMode="file"/>
+                    </div>
+                </div>
 				<footer>Copyright &copy; 2017 Alex Staples. All Rights Reserved.</footer>
 			</div>
 		);
