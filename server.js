@@ -29,13 +29,15 @@ let storage = multer.diskStorage({
 let upload = multer({storage: storage}).single('file');
 
 app.use(express.static('.'));
+app.use(express.static('build'));
 
 //Showing index.html file on our homepage
 app.get('/', (request, response) => {
-	response.sendFile(__dirname + '/public//index.html');
+	response.sendFile(__dirname + '/build/index.html');
 });
 
 // getting files that are already uploaded
+// filter out files beginning with '.'
 app.get('/upload', (request, response) => {
 	fs.readdir("./uploads")
 		.then(files => {
@@ -56,13 +58,13 @@ app.get('/upload', (request, response) => {
 });
 
 // get single file that is already uploaded
-// app.get('/upload/:file', (request, response, err) => {
-// 	console.log(request.params.file);
-// 	if(err){
-// 		console.log(err);
-// 	}
-// 	response.sendFile('/uploads/' + request.params.file);
-// });
+app.get('/upload/:file', (request, response, err) => {
+	console.log(request.params.file);
+	if(err){
+		console.log(err);
+	}
+	response.sendFile(__dirname + '/uploads/' + request.params.file);
+});
 
 //Posting the file upload
 app.post('/upload', (request, response) =>{
@@ -76,7 +78,7 @@ app.post('/upload', (request, response) =>{
 	})
 });
 
-app.delete('/uploads/:filename', (request, response) => {
+app.delete('/upload/:filename', (request, response) => {
 	console.log(__dirname + '/uploads/' + request.params.filename);
 	fs.unlink(__dirname + '/uploads/' + request.params.filename, err => {
 		if (err) {

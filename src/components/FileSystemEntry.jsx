@@ -33,8 +33,9 @@ const EntrySize = props =>
 
 const DownloadButton = props =>
     <a
+        download
         className="download-button"
-        href={`../../uploads/${props.filename}`}>
+        href={`/upload/${props.filename}`}>
         <img src={downloadIcon} alt="Download file" async="async"/>
     </a>;
 
