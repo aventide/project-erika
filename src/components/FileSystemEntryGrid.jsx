@@ -18,8 +18,15 @@ class FileSystemEntryGrid extends React.Component {
         setInterval(this.getFSEntries.bind(this), 5000);
     }
 
+    componentWillReceiveProps(newProps) {
+		Axios.get(newProps.currentDirPath)
+			.then(response => {
+				this.setState({files: response.data});
+			});
+    }
+
     getFSEntries() {
-        Axios.get('/upload')
+        Axios.get(this.props.currentDirPath)
             .then(response => {
                 this.setState({files: response.data});
             });
@@ -36,6 +43,8 @@ class FileSystemEntryGrid extends React.Component {
                             key={file.name}
                             file={file}
                             fileDisplayMode={this.props.fileDisplayMode}
+                            handleDirClick={this.props.handleDirClick}
+                            currentDirPath={this.props.currentDirPath}
                         />
                     ))}
                 </ReactCSSTransitionGroup>

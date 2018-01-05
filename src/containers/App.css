@@ -37,12 +37,13 @@
 
 header {
     width: 100vw;
-    height: 6rem;
+    height: 3rem;
     font-size: 20px;
     color: lightblue;
     position: relative;
     vertical-align: middle;
     display: table-cell;
+    font-family: 'Poppins', sans-serif;
 }
 
 h2 {
@@ -58,42 +59,27 @@ h6:hover {
     cursor: pointer;
 }
 
-.LeftHeaderContent {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 14px;
-    margin: auto;
-    height: 3em;
-}
-
-.RightHeaderContent {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 24px;
-    margin: auto;
-    height: 3em;
-}
-
 .PersonalSymbol {
-    height: 3em;
-    width: 3em;
+    height: 1.5em;
+    width: 2.5em;
     float: left;
 }
 
 .SeparationLine {
     float: left;
-    height: 3em;
+    height: 1.5em;
     border-left: 2px solid lightblue;
-    margin-left: 0.5em;
 }
 
-.HeaderDescription {
-    height: 3em;
-    width: 3em;
-    float: left;
-    margin-left: 0.5em;
+.selectable-directory:hover{
+    opacity: 0.7;
+}
+
+.login{
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    margin: auto;
 }
 
 footer {

@@ -4,21 +4,21 @@ import PersonalSymbol from '../images/taecon_lightblue.svg';
 
 const Header = props =>
 	<header>
-		<LeftHeaderContent/>
-		<h2>{props.text}</h2>
-		<RightHeaderContent/>
-	</header>;
-
-const LeftHeaderContent = () =>
-	<div className="LeftHeaderContent">
 		<img src={PersonalSymbol} className="PersonalSymbol" alt=""/>
 		<div className="SeparationLine"/>
-		<span className="HeaderDescription">project erika</span>
-	</div>;
+		<WorkingDirectory currentDirPath={props.currentDirPath}/>
+		<LogOut/>
+	</header>;
 
-const RightHeaderContent = () =>
-	<div className="RightHeaderContent">
-		<h6>Log out</h6>
-	</div>;
+const LogOut = () =>
+	<h6 className="login">Log out</h6>;
+
+const WorkingDirectory = props =>
+	props.currentDirPath.split('/').map((dir, index) =>
+		<div style={{display: "inline"}} key={dir + index}>
+			<b className="selectable-directory">{dir}</b>
+			<b>/</b>
+		</div>
+	);
 
 export default Header;

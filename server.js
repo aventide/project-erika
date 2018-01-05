@@ -45,8 +45,8 @@ app.get('/upload', (request, response) => {
 				files
 					.filter(file => !file.startsWith("."))
 					.map(file => {
-						let stats = fs.statSync(path.join('./uploads/', file));
-						let sizeInMB = (stats.size / 1024 / 1024).toFixed(2);
+						const stats = fs.statSync(path.join('./uploads/', file));
+						const sizeInMB = (stats.size / 1024 / 1024).toFixed(2);
 						return {name: file, size: sizeInMB + " MB"}
 					})
 			);
@@ -57,17 +57,53 @@ app.get('/upload', (request, response) => {
 		});
 });
 
-// get single file that is already uploaded
-app.get('/upload/:file', (request, response, err) => {
-	console.log(request.params.file);
+// get single file or directory of files that is already uploaded. Nested level.
+app.get('/upload/*', (request, response, err) => {
+	console.log(`GET /upload/${request.params[0]}`);
+
+	const thisPath = path.join('./uploads/', request.params[0]);
+	const stats = fs.statSync(thisPath);
+
+	if(stats.isFile()){
+		response.sendFile(path.resolve(thisPath));
+	}
+
+	else if (stats.isDirectory()){
+		fs.readdir(thisPath)
+			.then(files => {
+				response.send(
+					files
+						.filter(file => !file.startsWith("."))
+						.map(file => {
+							const stats = fs.statSync(thisPath);
+							const sizeInMB = (stats.size / 1024 / 1024).toFixed(2);
+							return {name: file, size: sizeInMB + " MB"}
+						})
+				);
+			})
+			.catch(err => {
+				console.log(err);
+				response.send([]);
+			});
+	}
+
 	if(err){
 		console.log(err);
 	}
-	response.sendFile(__dirname + '/uploads/' + request.params.file);
+
 });
 
+// get single file that is already uploaded. Single level.
+// app.get('/upload/:file', (request, response, err) => {
+// 	console.log(`GET /upload/${request.params.file}`);
+// 	if(err){
+// 		console.log(err);
+// 	}
+// 	response.sendFile(__dirname + '/uploads/' + request.params.file);
+// });
+
 //Posting the file upload
-app.post('/upload', (request, response) =>{
+app.post('/upload', (request, response) => {
 	upload(request, response, err => {
 		if (err || request.file === undefined) {
 			console.log(err);
